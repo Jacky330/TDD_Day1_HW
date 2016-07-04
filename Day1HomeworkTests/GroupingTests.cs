@@ -39,12 +39,12 @@ namespace Day1Homework.Tests
         public void TestForSubtotal_3筆一組_取Cost總和_結果應為6_15_24_21()
         {
             // arrange
-            var products = GetProducts();
+            var g = new Grouping<Product>(GetProducts());
             var size = 3;
-            var colName = "Cost";
+            var colName = "Cost";            
 
             // atc
-            var actual = products.Subtotal(size, colName);
+            var actual = g.Subtotal(size, colName);
 
             // assert
             var expected = new decimal[] { 6, 15, 24, 21 };
@@ -56,41 +56,41 @@ namespace Day1Homework.Tests
         public void TestForSubtotal_4筆一組_取Revenue總和_結果應為50_66_60()
         {
             // arrange
-            var products = GetProducts();
+            var g = new Grouping<Product>(GetProducts());
             var size = 4;
             var colName = "Revenue";
 
             // atc
-            var actual = products.Subtotal(size, colName);
+            var actual = g.Subtotal(size, colName);
 
             // assert
             var expected = new decimal[] { 50, 66, 60 };
             expected.ToExpectedObject().ShouldEqual(actual);
         }
         [TestMethod()]
-        public void TestForSubtotal_分組數量設為0_結果應回傳ArgumentException() {
+        public void TestForSubtotal_分組數量設為0_結果應擲回ArgumentException() {
             // arrange
-            var products = GetProducts();
+            var g = new Grouping<Product>(GetProducts());
             var size = 0;
             var colName = "Revenue";
 
             // act
-            Action act = () => products.Subtotal(size, colName);
+            Action act = () => g.Subtotal(size, colName);
 
             // assert
             act.ShouldThrow<ArgumentException>();
         }
 
         [TestMethod()]
-        public void TestForSubtotal_分組數量設為1_屬性名稱設為Empty_結果應回傳ArgumentException()
+        public void TestForSubtotal_分組數量設為1_屬性名稱設為Empty_結果應擲回ArgumentException()
         {
             // arrange
-            var products = GetProducts();
+            var g = new Grouping<Product>(GetProducts());
             var size = 1;
             var colName = string.Empty;
 
             // act
-            Action act = () => products.Subtotal(size, colName);
+            Action act = () => g.Subtotal(size, colName);
 
             // assert
             act.ShouldThrow<ArgumentException>();

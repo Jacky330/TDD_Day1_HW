@@ -5,9 +5,16 @@ using System.Linq;
 namespace Day1Homework
 {
 
-    public static class Grouping
+    public class Grouping<T>
     {
-        public static decimal[] Subtotal<T>(this IEnumerable<T> data, int size, string colName)
+        private IEnumerable<T> data;
+
+        public Grouping(IEnumerable<T> data)
+        {
+            this.data = data;
+        }
+
+        public decimal[] Subtotal(int size, string colName)
         {
             if (size <= 0)
             {
@@ -18,7 +25,7 @@ namespace Day1Homework
                 throw new ArgumentException("The argument 'colName' cannot be null, empty or contain any white space.");
             }
 
-            int pageCount = (int)Math.Ceiling((double)data.Count() / size);
+            int pageCount = (int)Math.Ceiling((double)this.data.Count() / size);
             decimal[] result = new decimal[pageCount];
 
             for (var i = 0; i < pageCount; ++i)
